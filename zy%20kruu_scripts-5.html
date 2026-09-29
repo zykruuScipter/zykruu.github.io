@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zykruu Scripts</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#07070d;color:#fff;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-50%;background:radial-gradient(circle at 50% 20%,#6c2cff22,transparent 30%),radial-gradient(circle at 20% 80%,#b026ff18,transparent 25%);animation:bg 10s ease-in-out infinite alternate;z-index:-1}
+@keyframes bg{to{transform:scale(1.12) rotate(2deg)}}
+nav{position:sticky;top:0;z-index:10;padding:18px 7%;display:flex;justify-content:space-between;align-items:center;background:#07070dcc;border-bottom:1px solid #ffffff12;backdrop-filter:blur(14px)}
+.logo{font-size:23px;font-weight:900;letter-spacing:1px}.logo span{color:#a855f7}
+nav a{color:#bbb;text-decoration:none;margin-left:22px;font-size:14px}
+.hero{text-align:center;padding:95px 20px 65px}
+.badge{display:inline-block;padding:8px 14px;border:1px solid #a855f755;border-radius:99px;color:#c084fc;background:#a855f710;font-size:12px}
+h1{font-size:clamp(48px,10vw,92px);margin:20px 0 10px;line-height:.95}
+h1 span{color:#a855f7;text-shadow:0 0 35px #a855f766}
+.hero p{color:#999;max-width:620px;margin:auto;line-height:1.7}
+.container{max-width:1100px;margin:auto;padding:20px}
+.search{width:100%;padding:16px 18px;background:#0e0e17;border:1px solid #ffffff14;border-radius:14px;color:white;outline:none;margin-bottom:25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{background:linear-gradient(145deg,#11111b,#0b0b12);border:1px solid #ffffff12;border-radius:20px;padding:23px;transition:.3s;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;width:120px;height:120px;background:#a855f733;filter:blur(45px);right:-50px;top:-50px}
+.card:hover{transform:translateY(-7px);border-color:#a855f766;box-shadow:0 15px 45px #0008}
+.icon{font-size:34px}.card h2{font-size:20px;margin:15px 0 7px}.card p{color:#888;font-size:13px;margin-bottom:20px}
+.btn{display:inline-block;width:100%;padding:12px;text-align:center;border:0;border-radius:11px;background:#a855f7;color:white;font-weight:bold;cursor:pointer}
+.btn:hover{background:#9333ea}
+.codebox{width:100%;min-height:90px;margin:12px 0;padding:12px;border:1px solid #ffffff14;border-radius:10px;background:#07070d;color:#cfcfcf;font:12px monospace;resize:vertical;outline:none}
+.selectbtn{margin-top:8px;background:#181321;border:1px solid #a855f744}
+.about{text-align:center;padding:85px 20px;color:#999;line-height:1.7}
+.about h2{color:white;margin-bottom:12px;font-size:32px}
+footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#666;font-size:12px}
+#toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);background:#17121f;border:1px solid #a855f755;padding:12px 18px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<nav><div class="logo">ZYKRUU <span>SCRIPTS</span></div><div><a href="#scripts">Scripts</a><a href="#about">About</a></div></nav>
+
+<section class="hero">
+<div class="badge">⚡ GAMING SCRIPT HUB</div>
+<h1>ZYKRUU <span>SCRIPTS</span></h1>
+<p>Animated, clean and futuristic script hub. Find your game and copy the script with one click.</p>
+</section>
+
+<main class="container" id="scripts">
+<input class="search" id="search" placeholder="Search a game or script...">
+<div class="grid" id="grid"></div>
+</main>
+
+<section class="about" id="about">
+<h2>About Zykruu Scripts</h2>
+<p>A personal gaming script hub made with a dark futuristic UI.</p>
+</section>
+<footer>© 2026 Zykruu Scripts • Use scripts only where permitted.</footer>
+<div id="toast">Copied!</div>
+
+<script>
+const scripts=[
+{game:"Steal a Brainrot",name:"Zykruu Script",icon:"🧠",code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()`},
+{game:"QuantumOnyx",name:"QuantumOnyx",icon:"⚛️",code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/Trustmenotcondom/QTONYX/refs/heads/main/QuantumOnyx.lua"))()`},
+{game:"Hypershot",name:"Hypershot",icon:"🎯",code:`loadstring(game:HttpGet("https://raw.githubusercontent.com/TheRealAvrwm/Zephyr-V2/refs/heads/main/Hypershot.lua", true))()`},
+{game:"Rivals",name:"Zykruu × Zebu",icon:"🔫",code:`loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5523ca4e22f21cceffa.lua"))()`},
+{game:"99 Nights in the Forest",name:"99 Nights Script",icon:"🌲",code:`loadstring(game:HttpGet("https://pastebin.com/raw/LPbPPNpC"))()`},
+{game:"Steal an Egg",name:"Steal an Egg Script",icon:"🥚",code:"PASTE YOUR STEAL AN EGG SCRIPT HERE"}
+];
+const grid=document.getElementById("grid");
+function render(list=scripts){
+grid.innerHTML=list.map((s,i)=>`<article class="card"><div class="icon">${s.icon}</div><h2>${s.game}</h2><p>${s.name}</p><textarea class="codebox" id="code-${i}" readonly>${s.code}</textarea><button class="btn" onclick="copyScript(${i})">COPY SCRIPT</button><button class="btn selectbtn" onclick="selectScript(${i})">SELECT ALL</button></article>`).join("");
+}
+async function copyScript(i){
+  const code=scripts[i].code;
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(code);
+    }else{
+      const ta=document.createElement("textarea");
+      ta.value=code; ta.style.position="fixed"; ta.style.left="-9999px";
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      document.execCommand("copy"); ta.remove();
+    }
+    showToast("Script copied! ✅");
+  }catch(e){
+    showToast("Copy blocked — long-press the script to copy.");
+  }
+}
+function selectScript(i){
+  const box=document.getElementById("code-"+i);
+  box.focus(); box.select();
+  showToast("Script selected — long-press/copy it.");
+}
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),1800);
+}
+document.getElementById("search").addEventListener("input",e=>{
+const q=e.target.value.toLowerCase();render(scripts.filter(s=>(s.game+" "+s.name).toLowerCase().includes(q)));
+});
+render();
+</script>
+</body>
+</html>
